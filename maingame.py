@@ -64,8 +64,16 @@ class player(object):
         elif self.right:
             win.blit(walkRight[p1.walkCount // 2], (round(self.x), round(self.y)))
             self.walkCount += 1
+        else:
+            if self.LB:
+                win.blit(char_back, (round(self.x), round(self.y)))
+                self.walkCount = 0
 
-        elif self.isJump:
+            else:
+                win.blit(char, (round(self.x), round(self.y)))
+                self.walkCount = 0
+
+        if self.isJump:
             if self.up:
                 win.blit(jumpUp[p1.walkCount // 2] (round(self.x), round(self.y)))
                 self.walkCount += 1
@@ -81,17 +89,7 @@ class player(object):
             else:
                 win.blit(char, (round(self.x), round(self.y)))
 
-        # CHARACTER IDLE POSITION
-        else:                                                             #**********
-            if self.LB:
-                win.blit(char_back, (round(self.x), round(self.y)))
-                self.walkCount = 0
 
-            else:
-                win.blit(char, (round(self.x), round(self.y)))
-                self.walkCount = 0
-
-                                                                          #***********
 def redrawGameWindow():
     win.blit(bg, (0, 0))
     p1.draw(win)
@@ -132,6 +130,16 @@ while run:
         p1.down = False
         p1.left = False
         p1.right = False
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    LB = True
+                    while True:
+                        LB = True
+                        if p1.walkCount <= 1:
+                            break
+                        else:
+                            LB = True
 
         # ******
         # what i want to happen is when the up arrow key is released it will show
