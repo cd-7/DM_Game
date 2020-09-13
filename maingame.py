@@ -6,29 +6,29 @@ wn_size = (1440, 800)
 win = pygame.display.set_mode(wn_size)
 pygame.display.set_caption("Devil's Maze")
 
-walkRight = [pygame.image.load('R1.png'),
-             pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/R2.png'),
-             pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/R3.png'),
-             pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/R4.png')]
-walkLeft = [pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/L1.png'),
-            pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/L2.png'),
-            pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/L3.png'),
-            pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/L4.png')]
-walkUp = [pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/F1.png'),
-          pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/F2.png'),
-          pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/F3.png'),
-          pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/F4.png')]
-walkDown = [pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/B1.png'),
-            pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/B2.png'),
-            pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/B3.png'),
-            pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/B4.png')]
-jumpRight = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/RJ.png')
-jumpLeft = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/LJ.png')
-jumpUp = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/Back.png')
-jumpDown = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/Standing.png')
-bg = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/maze-(1).png')
-char = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/Standing.png')
-char_back = pygame.image.load('/Users/xd/Desktop/PycharmProjects/Practice/NinjaSprite/Back.png')
+walkRight = [pygame.image.load('NinjaSprite/R1.png'),
+             pygame.image.load('NinjaSprite/R2.png'),
+             pygame.image.load('NinjaSprite/R3.png'),
+             pygame.image.load('NinjaSprite/R4.png')]
+walkLeft = [pygame.image.load('NinjaSprite/L1.png'),
+            pygame.image.load('NinjaSprite/L2.png'),
+            pygame.image.load('NinjaSprite/L3.png'),
+            pygame.image.load('NinjaSprite/L4.png')]
+walkUp = [pygame.image.load('NinjaSprite/F1.png'),
+          pygame.image.load('NinjaSprite/F2.png'),
+          pygame.image.load('NinjaSprite/F3.png'),
+          pygame.image.load('NinjaSprite/F4.png')]
+walkDown = [pygame.image.load('NinjaSprite/B1.png'),
+            pygame.image.load('NinjaSprite/B2.png'),
+            pygame.image.load('NinjaSprite/B3.png'),
+            pygame.image.load('NinjaSprite/B4.png')]
+jumpRight = pygame.image.load('NinjaSprite/RJ.png')
+jumpLeft = pygame.image.load('NinjaSprite/LJ.png')
+jumpUp = pygame.image.load('NinjaSprite/Back.png')
+jumpDown = pygame.image.load('NinjaSprite/Standing.png')
+bg = pygame.image.load('BGMazes/maze-(1).png')
+char = pygame.image.load('NinjaSprite/Standing.png')
+char_back = pygame.image.load('NinjaSprite/Back.png')
 clock = pygame.time.Clock()
 
 
