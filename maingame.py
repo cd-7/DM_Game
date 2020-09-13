@@ -84,14 +84,22 @@ class player (object):
         if self.isJump:
             if self.up:
                 win.blit(jumpUp, (round(self.x), round(self.y)))
+                self.back += 1
             elif self.down:
                 win.blit(jumpDown, (round(self.x), round(self.y)))
+                self.back = 0
             elif self.left:
                 win.blit(jumpLeft, (round(self.x), round(self.y)))
+                self.back = 0
             elif self.right:
                 win.blit(jumpRight, (round(self.x), round(self.y)))
+                self.back = 0
             else:
-                win.blit(char, (round(self.x), round(self.y)))
+                if self.back >= 1:
+                    win.blit(char_back, (round(self.x), round(self.y)))
+                else:
+                    win.blit(char, (round(self.x), round(self.y)))
+                    self.back = 0
 
 
 def redrawGameWindow():
@@ -113,7 +121,7 @@ while run:
     keys = pygame.key.get_pressed()
 
     # X COORDINATE ARROW PRESSES
-    if keys[pygame.K_LEFT] and p1.x > p1.vel:
+    if keys[pygame.K_LEFT] and p1.x > p1.vel + 35:
         p1.x -= p1.vel
         p1.left = True
         p1.right = False
