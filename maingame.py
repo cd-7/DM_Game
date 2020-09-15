@@ -1,9 +1,13 @@
 import pygame
 import random
+import math
 
 pygame.init()
-
+WH = 800
+WW = 1440
 wn_size = (1440, 800)
+HWH = WH / 2
+HWW = WW / 2
 win = pygame.display.set_mode(wn_size)
 pygame.display.set_caption("Devil's Maze")
 
@@ -29,10 +33,13 @@ jumpUp = pygame.image.load('NinjaSprite/UJ.png')
 jumpUp2 = pygame.image.load('NinjaSprite/UJ_2.png')
 jumpDown = pygame.image.load('NinjaSprite/DJ.png')
 bg = pygame.image.load('BGMazes/maze_bg.png')
+bgWidth, bgHeight = bg.get_rect().size
 char = pygame.image.load('NinjaSprite/Standing.png')
 char_back = pygame.image.load('NinjaSprite/Back.png')
 clock = pygame.time.Clock()
-
+stageWidth = bgWidth
+stage_x = 0
+startScrolling_x = HWW
 
 class player (object):
     def __init__(self, x, y, width, height):
@@ -48,10 +55,13 @@ class player (object):
         self.left = False
         self.right = False
         self.back = 0
+        self.center = width / 2
+        self.center_x = self.center
+
 
 
     def draw(self, win):
-        if self.walkCount + 1 >= 8:
+        if self.walkCount + 1 >= 7:
             self.walkCount = 0
         if self.walkCount >= 1:
             self.back = 0
@@ -103,7 +113,12 @@ class player (object):
 
 
 def redrawGameWindow():
-    win.blit(bg, (0, 0))
+
+    rel_x = stage_x % bgWidth
+    win.blit(bg, (rel_x - bgWidth, 0))
+    if rel_x < WW:
+        win.blit(bg, (rel_x, 0))
+
     p1.draw(win)
     pygame.display.update()
 
@@ -123,12 +138,34 @@ while run:
     # X COORDINATE ARROW PRESSES
     if keys[pygame.K_LEFT] and p1.x > p1.vel + 35:
         p1.x -= p1.vel
+        if p1.x > stageWidth - p1.center:
+            p1.x = stageWidth - p1.center
+        if p1.x < p1.center:
+            p1.x = p1.center
+        if p1.x > startScrolling_x:
+            p1.x = p1.center_x = p1.x
+        elif p1.x < stageWidth - startScrolling_x:
+            p1.center_x = p1.x - stageWidth + WW
+        else:
+            p1.center_x = startScrolling_x
+            stage_x += -p1.vel
         p1.left = True
         p1.right = False
         p1.up = False
         p1.down = False
     elif keys[pygame.K_RIGHT] and p1.x < 1440 - p1.width - p1.vel:
         p1.x += p1.vel
+        if p1.x > stageWidth - p1.center:
+            p1.x = stageWidth - p1.center
+        if p1.x < p1.center:
+            p1.x = p1.center
+        if p1.x < startScrolling_x:
+            p1.x = p1.center_x = p1.x
+        elif p1.x > stageWidth - startScrolling_x:
+            p1.center_x = p1.x - stageWidth + WW
+        else:
+            p1.center_x = startScrolling_x
+            stage_x += -p1.vel
         p1.left = False
         p1.right = True
         p1.up = False
@@ -167,6 +204,7 @@ while run:
         else:
             p1.jumpCount = 10
             p1.isJump = False
+
 
     redrawGameWindow()
 
