@@ -2,9 +2,13 @@ import pygame
 import random
 
 pygame.init()
-
+WH = 800
+WW = 1440
+HWH = WH / 2
+HWW = WW / 2
 wn_size = (1440, 800)
 win = pygame.display.set_mode(wn_size)
+
 pygame.display.set_caption("Devil's Maze")
 
 walkRight = [pygame.image.load('NinjaSprite/R1.png'),
@@ -28,14 +32,22 @@ jumpLeft = pygame.image.load('NinjaSprite/LJ.png')
 jumpUp = pygame.image.load('NinjaSprite/UJ.png')
 jumpUp2 = pygame.image.load('NinjaSprite/UJ_2.png')
 jumpDown = pygame.image.load('NinjaSprite/DJ.png')
-bg = pygame.image.load('BGMazes/maze_bg.png')
+bg = pygame.image.load('BGMazes/bg.png')
 char = pygame.image.load('NinjaSprite/Standing.png')
 char_back = pygame.image.load('NinjaSprite/Back.png')
 clock = pygame.time.Clock()
 
+bgWidth, bgHeight = bg.get_rect().size
+stageWidth = bgWidth
+stage_x = 0
+stage_y = 0
+startScrolling_x = HWW
+bg_x = 0
+bg_y = 0
 
 class player (object):
     def __init__(self, x, y, width, height):
+        super().__init__()
         self.x = x
         self.y = y
         self.width = width
@@ -49,8 +61,8 @@ class player (object):
         self.right = False
         self.back = 0
 
-
-    def draw(self, win):
+    def ninja (self, win):
+        super().__init__()
         if self.walkCount + 1 >= 8:
             self.walkCount = 0
         if self.walkCount >= 1:
@@ -103,13 +115,15 @@ class player (object):
 
 
 def redrawGameWindow():
-    win.blit(bg, (0, 0))
-    p1.draw(win)
+
+    walls = []
+    p1.ninja(win)
     pygame.display.update()
 
-
 # MAINLOOP
-p1 = player(58, 0, 64, 64)
+spawn_x = 58
+spawn_y = 0
+p1 = player(spawn_x, spawn_y, 64, 64)
 run = True
 while run:
     clock.tick(27)
@@ -119,16 +133,30 @@ while run:
             run = False
 
     keys = pygame.key.get_pressed()
+    player_x = p1.x
 
     # X COORDINATE ARROW PRESSES
     if keys[pygame.K_LEFT] and p1.x > p1.vel + 35:
-        p1.x -= p1.vel
+        p1.x += - p1.vel
+        if p1.x > 0 and bg_x != 0:
+            p1.x = HWW
+            bg_x += p1.vel
         p1.left = True
         p1.right = False
         p1.up = False
         p1.down = False
-    elif keys[pygame.K_RIGHT] and p1.x < 1440 - p1.width - p1.vel:
+
+    elif keys[pygame.K_RIGHT] and p1.x < 1440 - p1.width:
         p1.x += p1.vel
+        if p1.x >= HWW:
+            p1.x = HWW
+            if stage_x >= 5:
+                bg_x = 100
+                stage_x = 5
+                p1.x = p1.x
+            else:
+                bg_x -= p1.vel
+                stage_x -= p1.vel
         p1.left = False
         p1.right = True
         p1.up = False
@@ -137,12 +165,19 @@ while run:
     # Y COORDINATE ARROW PRESSES
     elif keys[pygame.K_UP] and p1.y > p1.vel:
         p1.y -= p1.vel
+        if bg_y < 0:
+            p1.y = HWH
+            bg_y += p1.vel
         p1.up = True
         p1.down = False
         p1.left = False
         p1.right = False
+
     elif keys[pygame.K_DOWN] and p1.y < 800 - p1.vel - p1.width:
         p1.y += p1.vel
+        if p1.y >= HWH:
+            p1.y = HWH
+            bg_y -= p1.vel
         p1.up = False
         p1.left = False
         p1.right = False
@@ -167,6 +202,8 @@ while run:
         else:
             p1.jumpCount = 10
             p1.isJump = False
+
+    win.blit(bg, (bg_x, bg_y))
 
     redrawGameWindow()
 
