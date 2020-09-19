@@ -13,36 +13,34 @@ HWH = WH / 2
 HWW = WW / 2
 wn_size = (1440, 800)
 win = pygame.display.set_mode(wn_size)
-
 pygame.display.set_caption("Devil's Maze")
 
-walkRight = [pygame.image.load('NinjaSprite/R1.png'),
-             pygame.image.load('NinjaSprite/R2.png'),
-             pygame.image.load('NinjaSprite/R3.png'),
-             pygame.image.load('NinjaSprite/R4.png')]
-walkLeft = [pygame.image.load('NinjaSprite/L1.png'),
-            pygame.image.load('NinjaSprite/L2.png'),
-            pygame.image.load('NinjaSprite/L3.png'),
-            pygame.image.load('NinjaSprite/L4.png')]
-walkUp = [pygame.image.load('NinjaSprite/U1.png'),
-          pygame.image.load('NinjaSprite/U2.png'),
-          pygame.image.load('NinjaSprite/U3.png'),
-          pygame.image.load('NinjaSprite/U4.png')]
-
-walkDown = [pygame.image.load('NinjaSprite/D1.png'),
-            pygame.image.load('NinjaSprite/D2.png'),
-            pygame.image.load('NinjaSprite/D3.png'),
-            pygame.image.load('NinjaSprite/D4.png')]
-jumpRight = pygame.image.load('NinjaSprite/RJ.png')
-jumpLeft = pygame.image.load('NinjaSprite/LJ.png')
-jumpUp = pygame.image.load('NinjaSprite/UJ.png')
-jumpUp2 = pygame.image.load('NinjaSprite/UJ_2.png')
-jumpDown = pygame.image.load('NinjaSprite/DJ.png')
-bg = pygame.image.load('BGMazes/bg.png')
-char = pygame.image.load('NinjaSprite/Standing.png')
-char_back = pygame.image.load('NinjaSprite/Back.png')
+walkRight = [pygame.image.load('Images/NinjaSprite/R1.png'),
+             pygame.image.load('Images/NinjaSprite/R2.png'),
+             pygame.image.load('Images/NinjaSprite/R3.png'),
+             pygame.image.load('Images/NinjaSprite/R4.png')]
+walkLeft = [pygame.image.load('Images/NinjaSprite/L1.png'),
+            pygame.image.load('Images/NinjaSprite/L2.png'),
+            pygame.image.load('Images/NinjaSprite/L3.png'),
+            pygame.image.load('Images/NinjaSprite/L4.png')]
+walkUp = [pygame.image.load('Images/NinjaSprite/U1.png'),
+          pygame.image.load('Images/NinjaSprite/U2.png'),
+          pygame.image.load('Images/NinjaSprite/U3.png'),
+          pygame.image.load('Images/NinjaSprite/U4.png')]
+walkDown = [pygame.image.load('Images/NinjaSprite/D1.png'),
+            pygame.image.load('Images/NinjaSprite/D2.png'),
+            pygame.image.load('Images/NinjaSprite/D3.png'),
+            pygame.image.load('Images/NinjaSprite/D4.png')]
+jumpRight = pygame.image.load('Images/NinjaSprite/RJ.png')
+jumpLeft = pygame.image.load('Images/NinjaSprite/LJ.png')
+jumpUp = pygame.image.load('Images/NinjaSprite/UJ.png')
+jumpUp2 = pygame.image.load('Images/NinjaSprite/UJ_2.png')
+jumpDown = pygame.image.load('Images/NinjaSprite/DJ.png')
+bg = pygame.image.load('Images/BGMazes/bg.png')
+char = pygame.image.load('Images/NinjaSprite/Standing.png')
+char_back = pygame.image.load('Images/NinjaSprite/Back.png')
 clock = pygame.time.Clock()
-wall_img = pygame.image.load('BGMazes/wall.png')
+wall_img = pygame.image.load('Images/BGMazes/wall.png')
 walls = []
 bgWidth, bgHeight = bg.get_rect().size
 stageWidth = bgWidth
@@ -52,6 +50,13 @@ startScrolling_x = HWW
 bg_x = 0
 bg_y = 0
 
+
+
+class Wall(object):
+    def __init__(self, pos):
+        walls.append(self)
+        self.rect = pygame.Rect(pos[0], pos[1], 60, 60)
+        self.image = pygame.image.load('Images/BGMazes/wall.png')
 
 
 class player(object):
