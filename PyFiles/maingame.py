@@ -1,11 +1,6 @@
 import pygame
 pygame.init()
-###########################################################
-#START MENU:
 
-
-###########################################################
-#MAZE:
 
 WH = 800
 WW = 1440
@@ -42,21 +37,8 @@ char_back = pygame.image.load('Images/NinjaSprite/Back.png')
 clock = pygame.time.Clock()
 wall_img = pygame.image.load('Images/BGMazes/wall.png')
 walls = []
-bgWidth, bgHeight = bg.get_rect().size
-stageWidth = bgWidth
-stage_x = 0
-stage_y = 0
-startScrolling_x = HWW
 bg_x = 0
 bg_y = 0
-
-
-
-class Wall(object):
-    def __init__(self, pos):
-        walls.append(self)
-        self.rect = pygame.Rect(pos[0], pos[1], 60, 60)
-        self.image = pygame.image.load('Images/BGMazes/wall.png')
 
 
 class player(object):
@@ -65,7 +47,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self.vel = 5
+        self.vel = 20
         self.isJump = False
         self.jumpCount = 10
         self.up = False
@@ -151,9 +133,9 @@ while run:
     player_x = p1.x
 
     # X COORDINATE ARROW PRESSES
-    if keys[pygame.K_LEFT] and p1.x > p1.vel + 35:
+    if keys[pygame.K_LEFT] and p1.x > p1.vel + 27:
         p1.x += - p1.vel
-        if p1.x > 0 and bg_x != 0:
+        if p1.x > 0 and bg_x != 0 and p1.x <= HWW:
             p1.x = HWW
             bg_x += p1.vel
         p1.left = True
@@ -161,17 +143,14 @@ while run:
         p1.up = False
         p1.down = False
 
-    elif keys[pygame.K_RIGHT] and p1.x < 1440 - p1.width:
+    elif keys[pygame.K_RIGHT] and p1.x < 1380:
         p1.x += p1.vel
-        if p1.x >= HWW:
-            p1.x = HWW
-            if stage_x >= 5:
-                bg_x = 100
-                stage_x = 5
-                p1.x = p1.x
-            else:
+        if bg_x >= -355:
+            if p1.x >= HWW:
+                p1.x = HWW
                 bg_x -= p1.vel
-                stage_x -= p1.vel
+
+
         p1.left = False
         p1.right = True
         p1.up = False
@@ -188,9 +167,9 @@ while run:
         p1.left = False
         p1.right = False
 
-    elif keys[pygame.K_DOWN] and p1.y < 800 - p1.vel - p1.width:
+    elif keys[pygame.K_DOWN] and p1.y < 650:
         p1.y += p1.vel
-        if p1.y >= HWH:
+        if p1.y >= HWH and bg_y >= -240:
             p1.y = HWH
             bg_y -= p1.vel
         p1.up = False
